@@ -25,7 +25,7 @@ public class HTree{
 		this.x = x;
 		this.y = y;
 		this.length = length;
-		this.depth = 1;
+		this.depth = 0;
 	}
 
 	/**
@@ -127,6 +127,8 @@ public class HTree{
 		g.drawLine(x1, y1, x2, y2);
 
 		//reduction step
+		recursiveDraw(n - 1, x1, y1, halfLength);
+		recursiveDraw(n - 1, x2, y2, halfLength);
 
 		//vertical right
 		x1 = a + halfLength;
@@ -134,6 +136,8 @@ public class HTree{
 		g.drawLine(x1, y1, x2, y2);
 
 		//reduction step
+		recursiveDraw(n - 1, x1, y1, halfLength);
+		recursiveDraw(n - 1, x2, y2, halfLength);
 	}
 	
 
