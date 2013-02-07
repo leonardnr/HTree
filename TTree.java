@@ -25,7 +25,7 @@ public class TTree{
 		this.x = x;
 		this.y = y;
 		this.length = length;
-		this.depth = 0;
+		this.depth = 1;
 	}
 
 	/**
@@ -114,29 +114,25 @@ public class TTree{
 		int halfLength = s / 2;
 
 		//horizontal line
-		int x1 = a - halfLength;
+		int x1 = a;
 		int y1 = b;
 		int x2 = a + halfLength;
 		int y2 = b;
 		g.drawLine(x1, y1, x2, y2);
 
-		//vertical left
-		y1 = b - halfLength;
-		x2 = x1;
-		y2 = b + halfLength;
+		//vertical
+		y1 = b + halfLength;
+		x1 = x2;
+		y2 = b - halfLength;
 		g.drawLine(x1, y1, x2, y2);
 
 		//reduction step
 		recursiveDraw(n - 1, x1, y1, halfLength);
 		recursiveDraw(n - 1, x2, y2, halfLength);
 
-		//vertical right
-		x1 = a + halfLength;
-		x2 = x1;
-		g.drawLine(x1, y1, x2, y2);
 
 		//reduction step
-		recursiveDraw(n - 1, x1, y1, halfLength);
-		recursiveDraw(n - 1, x2, y2, halfLength);
+		// recursiveDraw(n - 1, x1, y1, halfLength);
+		// recursiveDraw(n - 1, x2, y2, halfLength);
 	}
 }
