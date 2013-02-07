@@ -89,7 +89,8 @@ public class TTree{
 	 */
 	public void draw(Graphics g){
 		this.g = g;
-		recursiveDraw(depth, x, y, length);
+		recursiveDrawLeft(depth, x, y, length);
+		recursiveDrawRight(depth, x, y, length);
 	}
 
 	/**
@@ -103,9 +104,9 @@ public class TTree{
 	 *
 	 * precondtion - g must not be null
 	 */
-	private void recursiveDraw(int n, int a, int b, int s){
+	private void recursiveDrawLeft(int n, int a, int b, int s){
 		//base case
-		if(n < 0){
+		if(n <= 0){
 			return;
 		}
 		//draw step
@@ -120,19 +121,42 @@ public class TTree{
 		int y2 = b;
 		g.drawLine(x1, y1, x2, y2);
 
-		//vertical
+		//vertical right
 		y1 = b + halfLength;
 		x1 = x2;
 		y2 = b - halfLength;
 		g.drawLine(x1, y1, x2, y2);
 
 		//reduction step
-		recursiveDraw(n - 1, x1, y1, halfLength);
-		recursiveDraw(n - 1, x2, y2, halfLength);
+		recursiveDrawLeft(n - 1, x1, y1, halfLength);
+		recursiveDrawLeft(n - 1, x2, y2, halfLength);
+	}
 
+		private void recursiveDrawRight(int n, int a, int b, int s){
+		//base case
+		if(n <= 0){
+			return;
+		}
+		//draw step
+		
+		//math to calculate new position and sizes
+		int halfLength = s / 2;
+
+		//horizontal line
+		int x1 = a;
+		int y1 = b;
+		int x2 = a - halfLength;
+		int y2 = b;
+		g.drawLine(x1, y1, x2, y2);
+
+		//vertical right
+		y1 = b + halfLength;
+		x1 = x2;
+		y2 = b - halfLength;
+		g.drawLine(x1, y1, x2, y2);
 
 		//reduction step
-		// recursiveDraw(n - 1, x1, y1, halfLength);
-		// recursiveDraw(n - 1, x2, y2, halfLength);
+		recursiveDrawRight(n - 1, x1, y1, halfLength);
+		recursiveDrawRight(n - 1, x2, y2, halfLength);
 	}
 }
