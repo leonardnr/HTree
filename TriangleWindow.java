@@ -11,7 +11,7 @@ import java.awt.Rectangle;
 import javax.swing.JFrame;
 import java.awt.event.*;
 
-public class TriangleWindow extends JFrame implents MouseActionListener{
+public class TriangleWindow extends JFrame implements MouseListener{
 
 	private SirTri tri = null;
 
@@ -48,7 +48,10 @@ public class TriangleWindow extends JFrame implents MouseActionListener{
 	 */
 	@Override
 	public void paint(Graphics g){
-		reset();
+		//reset();
+		if(tri == null){
+			tri = new SirTri(this.getBounds().width / 2, this.getBounds().height / 2);
+		}
 		tri.draw(buffer);
 		g.drawImage(offscreen, 0, 0, this);
 	}
@@ -59,24 +62,23 @@ public class TriangleWindow extends JFrame implents MouseActionListener{
 	 *
 	 * 		Erases the old image on the screen by drawing a rectangle over it
 	 */
-	public void reset(){
-		Rectangle r = new Rectangle(this.getBounds());
+	// public void reset(){
+	// 	Rectangle r = new Rectangle(this.getBounds());
 
-		offscreen = createImage(r.width, r.height);
-		buffer = offscreen.getGraphics();
-		buffer.setColor(Color.white);
+	// 	offscreen = createImage(r.width, r.height);
+	// 	buffer = offscreen.getGraphics();
+	// 	buffer.setColor(Color.white);
 
-		buffer.clearRect(0, 0, r.width, r.height);
+	// 	buffer.clearRect(0, 0, r.width, r.height);
 
-		if (tri == null) { // tree not created yet
-			tri = new SirTri(r.width / 2, r.height / 2 + 12, 
-			(int)(Math.min(r.width, r.height)*0.4));
-		} else {
-			tree.setX(r.width / 2);
-			tree.setY(r.height / 2 + 12);
-			tree.setLength((int)(Math.min(r.width, r.height)*0.4));
-		}
-	}
+	// 	if (tri == null) { // tree not created yet
+	// 		tri = new SirTri(300, 300);
+	// 	} else {
+	// 		tri.setX(r.width / 2);
+	// 		tri.setY(r.height / 2 + 12);
+	// 		tri.setLength((int)(Math.min(r.width, r.height)*0.4));
+	// 	}
+	// }
 
 	/**
 	 * Update
@@ -94,7 +96,77 @@ public class TriangleWindow extends JFrame implents MouseActionListener{
 	 * 		creates a Triangle Window
 	 */
 	public static void main(String[] args){
-		TriangleWindow daSierpinski = TriangleWindow(600, 600);
+		TriangleWindow daSierpinski = new TriangleWindow(600, 600);
+	}
+	/**
+	 * incrementDepth
+	 *
+	 * 		calls the incrementDepth method of SirTri object incrementing the depth
+	 */
+	public void incrementDepth(){
+		tri.incrementDepth();
+		repaint();
+	}
+
+	/**
+	 * mouseClicked
+	 * 		mouse was clicked (pressed and released) on the window
+	 * 		
+	 * 		must be overwritten when implementing MouseListener
+	 * 
+	 * @param e - object holding info about the mouse event
+	 */
+	public void mouseClicked(MouseEvent e) {
+		incrementDepth();
+	}
+
+
+	/**
+	 * mousePressed
+	 * 		mouse was pressed down
+	 * 		
+	 * 		must be overwritten when implementing MouseListener
+	 *
+	 * @param e - object holding info about the mouse event
+	 */
+	public void mousePressed(MouseEvent e) {
+
+	}
+
+	/**
+	 * mouseReleased
+	 * 		mouse was released after a press
+	 * 
+	 * 		must be overwritten when implementing MouseListener
+	 *
+	 * @param e - object holding info about the mouse event
+	 */
+	public void mouseReleased(MouseEvent e) {
+
+	}
+
+	/**
+	 * mouseEntered
+	 * 		mouse entered the window
+	 * 
+	 * 		must be overwritten when implementing MouseListener
+	 *
+	 * @param e - object holding info about the mouse event
+	 */
+	public void mouseEntered(MouseEvent e) {
+
+	}
+
+	/**
+	 * mouseExited
+	 * 		mouse exited the window
+	 * 
+	 * 		must be overwritten when implementing MouseListener
+	 *
+	 * @param e - object holding info about the mouse event
+	 */
+	public void mouseExited(MouseEvent e) {
+
 	}
 
 
