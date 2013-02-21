@@ -5,12 +5,13 @@
  */
 
 import java.awt.*;
+import java.lang.Math;
 public class SirTri{
 
 	private Graphics g;
-	private int cX, cY, depth;
-	private Polygon p;
+	private int cX, cY, w, depth;
 	public static final int MAX_DEPTH = 7;
+	private int x1, x2, x3, y1, y2, y3;
 
 	/**
 	 * Constructor
@@ -18,9 +19,10 @@ public class SirTri{
 	 * @param cX - x-coord of center point of first triangle
 	 * @param cY - y-coord of center point of first triangle
 	 */
-	public SirTri(int cX, int cY){
+	public SirTri(int cX, int cY, int w){
 		this.cX = cX;
 		this.cY = cY;
+		this.w = w;
 		this.depth = 1;
 	}
 
@@ -28,7 +30,6 @@ public class SirTri{
 	 * 
 	 * Getters and Setters
 	 * 
-	 *
 	 */
 	public int getcX(){
 		return this.cX;
@@ -68,7 +69,61 @@ public class SirTri{
 	 */
 	public void draw(Graphics g){
 		this.g = g;
-		//recursiveTriangle();
+		drawFirstTri();
+		recursiveTriangle( ((x2 - x1) / 2) + x1, 
+						   ((x2 - x3) / 2) + x3,
+						   ((x1 - x3) / 2) + x3,
+						   ((y1 - y2) / 2) + y2,
+						   ((y3 - y2) / 2) + y2,
+						   ((y1 - y3) / 2) + y3);	
+
+	}
+
+	/**
+	 * recursiveTriangle 
+	 *
+	 * 		recursively draws a sirpienski triangle
+	 * 		
+	 * @param ptOneX   - x coord of point 1
+	 * @param ptTwoX   - x coord of point 2
+	 * @param ptThreeX - x coord of point 3
+	 * @param ptOneY   - y coord of point 1
+	 * @param ptTwoY   - y coord of point 2
+	 * @param ptThreeY - y coord of point 3
+	 */
+	public void recursiveTriangle(int ptOneX, int ptTwoX, int ptThreeX, int ptOneY, int ptTwoY, int ptThreeY){
+		Polygon p = new Polygon();
+
+		p.addPoint(ptOneX, ptOneY);
+		p.addPoint(ptTwoX, ptTwoY);
+		p.addPoint(ptThreeX, ptThreeY);
+
+		g.drawPolygon(p);
+
+
+	}
+/**
+ * drawFirstTri
+ *
+ * 		draws the first triangle
+ */
+	public void drawFirstTri(){
+		Polygon p = new Polygon();
+
+		//top point
+		p.addPoint(cX, cY - w);
+		this.x1 = this.cX;
+		this.y1 = this.cY - this.w;
+		//right point
+		p.addPoint(cX + (int) Math.sqrt( (double) (w * w) - ((w * (0.5)) * (w * (0.5))) ), (int) (cX + (w * (0.5)))  );
+		this.x2 = this.cX + (int) Math.sqrt( (double) (this.w * this.w) - ((this.w * (0.5)) * (this.w * (0.5))));
+		this.y2 = (int) (this.cX + (this.w * (0.5))); 
+		//left point
+		p.addPoint(cX - (int) Math.sqrt( (double) (w * w) - ((w * (0.5)) * (w * (0.5))) ), (int) (cY + (w * (0.5)))  );
+		this.x3 = this.cX - (int) Math.sqrt( (double) (this.w * this.w) - ((this.w * (0.5)) * (this.w * (0.5))));
+		this.y3 = (int) (this.cY + (this.w * (0.5)));
+
+		g.drawPolygon(p);
 	}
 
 	

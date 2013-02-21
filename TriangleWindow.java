@@ -49,9 +49,18 @@ public class TriangleWindow extends JFrame implements MouseListener{
 	@Override
 	public void paint(Graphics g){
 		//reset();
+		Rectangle b = this.getBounds();
+		
 		if(tri == null){
-			tri = new SirTri(this.getBounds().width / 2, this.getBounds().height / 2);
+			tri = new SirTri(b.width / 2, b.height / 2, b.height / 3);
 		}
+
+		
+
+		offscreen = createImage(b.width, b.height);
+		buffer = offscreen.getGraphics();
+		buffer.setColor(Color.white);
+
 		tri.draw(buffer);
 		g.drawImage(offscreen, 0, 0, this);
 	}
