@@ -70,7 +70,8 @@ public class SirTri{
 	public void draw(Graphics g){
 		this.g = g;
 		drawFirstTri();
-		recursiveTriangle( ((x2 - x1) / 2) + x1, 
+		recursiveTriangle( depth,
+						   ((x2 - x1) / 2) + x1, 
 						   ((x2 - x3) / 2) + x3,
 						   ((x1 - x3) / 2) + x3,
 						   ((y1 - y2) / 2) + y2,
@@ -91,12 +92,39 @@ public class SirTri{
 	 * @param ptTwoY   - y coord of point 2
 	 * @param ptThreeY - y coord of point 3
 	 */
-	public void recursiveTriangle(int ptOneX, int ptTwoX, int ptThreeX, int ptOneY, int ptTwoY, int ptThreeY){
+	public void recursiveTriangle(int n, int ptOneX, int ptTwoX, int ptThreeX, int ptOneY, int ptTwoY, int ptThreeY){
+		if(n <= 1){
+			return;
+		}
 		Polygon p = new Polygon();
 
 		p.addPoint(ptOneX, ptOneY);
 		p.addPoint(ptTwoX, ptTwoY);
 		p.addPoint(ptThreeX, ptThreeY);
+
+		recursiveTriangle( n - 1,
+			              ((ptOneX   - ptTwoX  ) / 2) + ptTwoX,
+			 			  ((x2       - ptOneX  ) / 2) + ptOneX,
+			 			  ((x2       - ptThreeX) / 2) + ptThreeX,
+			 			  ((ptOneY   - ptTwoY  ) / 2) + ptTwoY,
+			 			  ((ptOneY   - x2      ) / 2) + x2,
+			 			  ((ptOneY   - ptTwoY  ) / 2) + ptTwoY);
+
+		// recursiveTriangle( n - 1,
+		// 	              ((ptTwoX   - ptOneX  ) / 2) + ptOneX,
+		// 	 			  ((ptTwoX   - ptThreeX) / 2) + ptThreeX,
+		// 	 			  ((ptOneX   - ptThreeX) / 2) + ptThreeX,
+		// 	 			  ((ptOneY   - ptTwoY  ) / 2) + ptTwoY,
+		// 	 			  ((ptThreeY - ptTwoY  ) / 2) + ptTwoY,
+		// 	 			  ((ptOneY   - ptThreeY) / 2) + ptThreeY);
+
+		// recursiveTriangle( n - 1,
+		// 	              ((ptTwoX   - ptOneX  ) / 2) + ptOneX,
+		// 	 			  ((ptTwoX   - ptThreeX) / 2) + ptThreeX,
+		// 	 			  ((ptOneX   - ptThreeX) / 2) + ptThreeX,
+		// 	 			  ((ptOneY   - ptTwoY  ) / 2) + ptTwoY,
+		// 	 			  ((ptThreeY - ptTwoY  ) / 2) + ptTwoY,
+		// 	 			  ((ptOneY   - ptThreeY) / 2) + ptThreeY);
 
 		g.drawPolygon(p);
 
