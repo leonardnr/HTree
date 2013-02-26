@@ -66,28 +66,7 @@ public class TriangleWindow extends JFrame implements MouseListener{
 	}
 
 
-	/**
-	 * Reset
-	 *
-	 * 		Erases the old image on the screen by drawing a rectangle over it
-	 */
-	// public void reset(){
-	// 	Rectangle r = new Rectangle(this.getBounds());
 
-	// 	offscreen = createImage(r.width, r.height);
-	// 	buffer = offscreen.getGraphics();
-	// 	buffer.setColor(Color.white);
-
-	// 	buffer.clearRect(0, 0, r.width, r.height);
-
-	// 	if (tri == null) { // tree not created yet
-	// 		tri = new SirTri(300, 300);
-	// 	} else {
-	// 		tri.setX(r.width / 2);
-	// 		tri.setY(r.height / 2 + 12);
-	// 		tri.setLength((int)(Math.min(r.width, r.height)*0.4));
-	// 	}
-	// }
 
 	/**
 	 * Update
